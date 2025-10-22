@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .  # Use the Dockerfile in the current directory
+      dockerfile: Dockerfile
+    container_name: devops_api
+    ports:
+      - "8000:8000"  # Map host port 8000 to container port 8000
+    volumes:
+      - ./main.py:/usr/src/app/main.py # Mount main.py for hot-reloading
