@@ -86,8 +86,5 @@ async def delete_todo(todo_id: int):
 
 # --- Main block to run the app locally ---
 if __name__ == "__main__":
-    """
-    This block allows you to run the app directly with `python main.py`
-    for local development.
-    """
+    
     uvicorn.run(app, host="0.0.0.0", port=8000)
