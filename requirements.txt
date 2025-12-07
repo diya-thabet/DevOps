@@ -1,7 +1,6 @@
 fastapi
-uvicorn[standard]
+uvicorn
 pydantic
-
-# Testing
-pytest
 httpx
+pytest
+prometheus-fastapi-instrumentator
