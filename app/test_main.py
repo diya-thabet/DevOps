@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from app.main import app  # <--- CHANGED: Points to app folder to work from root
+from app.main import app  # Import from app.main so pytest finds it from root
 
 # Create a test client
 client = TestClient(app)

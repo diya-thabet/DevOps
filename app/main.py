@@ -86,5 +86,5 @@ async def delete_todo(todo_id: int):
 
 # --- Main block to run the app locally ---
 if __name__ == "__main__":
-    
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # We add '# nosec' to tell Bandit this is safe (required for Docker)
+    uvicorn.run(app, host="0.0.0.0", port=8000) # nosec
