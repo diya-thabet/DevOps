@@ -28,7 +28,7 @@ jobs:
 
       - name: Run Security Scan (SAST)
         # Bandit scans your code for common security issues
-        run: bandit -r app/ -f custom
+        run: bandit -r app/ 
 
       - name: Run Unit Tests
         run: pytest
