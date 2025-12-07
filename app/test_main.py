@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from .main import app  # Import your FastAPI app
+from app.main import app  # <--- CHANGED: Points to app folder to work from root
 
 # Create a test client
 client = TestClient(app)
@@ -55,7 +55,7 @@ def test_update_todo():
     assert data["title"] == updated_todo["title"]
     assert data["completed"] == True
     
-    # Reset it for other tests
+    # Reset it for other tests so we don't break future runs
     client.put("/todos/1", json={"title": "Learn DevOps", "description": "Complete the project", "completed": False})
 
 def test_delete_todo():
