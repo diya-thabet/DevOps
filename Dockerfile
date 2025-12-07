@@ -1,43 +1,22 @@
-# --- Stage 1: Build Stage ---
-# Use a full Python image to install dependencies
-FROM python:3.10-slim AS builder
+# 1. Base Image: Use a lightweight Python image
+FROM python:3.9-slim
 
-WORKDIR /usr/src/app
+# 2. Working Directory: Set the folder inside the container
+WORKDIR /app
 
-# Install build dependencies
-RUN pip install --upgrade pip
-
-# Copy requirements file and install dependencies
-# This creates a cached layer of our dependencies
+# 3. Copy Dependencies: Copy only requirements first to cache them
 COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
+# 4. Install Dependencies: Run pip install
+# --no-cache-dir keeps the image small
+RUN pip install --no-cache-dir -r requirements.txt
 
-# --- Stage 2: Final Stage ---
-# Use a minimal, secure base image
-FROM python:3.10-slim AS final
+# 5. Copy Code: Copy the rest of the application code
+COPY . .
 
-WORKDIR /usr/src/app
-
-# Create a non-root user for security
-# This is a key security best practice
-RUN groupadd -r appuser && useradd -r -g appuser appuser
-
-# Copy installed dependencies from the builder stage
-COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
-COPY --from=builder /usr/local/bin /usr/local/bin
-
-# Copy the application code
-COPY main.py .
-
-# Change ownership to the non-root user
-RUN chown -R appuser:appuser /usr/src/app
-
-# Switch to the non-root user
-USER appuser
-
-# Expose the port the app runs on
+# 6. Expose Port: Tell Docker we listen on port 8000
 EXPOSE 8000
 
-# Run the application
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# 7. Command: How to run the app
+# "app.main:app" tells uvicorn where to look for the FastAPI instance
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
