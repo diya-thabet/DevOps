@@ -9,4 +9,4 @@ services:
     ports:
       - "8000:8000"  # Map host port 8000 to container port 8000
     volumes:
-      - ./main.py:/usr/src/app/main.py # Mount main.py for hot-reloading
+      - ./app:/app/app # Mount app directory for hot-reloading
