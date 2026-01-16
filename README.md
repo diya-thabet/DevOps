@@ -1,53 +1,117 @@
-# **Simple Todo API \- DevOps Project**
+# Simple Todo API - DevOps Project
 
-## **📖 Overview**
+Welcome to the Simple Todo API project! This is a lightweight REST application built to demonstrate core DevOps practices including CI/CD, Containerization, Kubernetes, Observability, and Security.
 
-This project is a RESTful backend service built with **FastAPI**, designed to demonstrate a complete DevOps lifecycle. It includes automated CI/CD pipelines, containerization, Kubernetes deployment, and full observability.
+## 🚀 Project Overview
 
-## **🚀 Key Features**
+This project implements a simple backend service for managing Todo items. It meets the following objectives:
+- **Backend**: Python (FastAPI) implementation under 150 lines.
+- **Containerization**: Dockerized application optimized for size.
+- **Orchestration**: Kubernetes manifests for deployment (Deployment & Service).
+- **CI/CD**: GitHub Actions pipeline for testing, security scanning, and building.
+- **Observability**: Prometheus metrics, structured logging, and request tracing.
+- **Security**: SAST (Bandit) and DAST (OWASP ZAP) scans.
 
-* **REST API:** Create, Read, Update, and Delete (CRUD) Todo items.  
-* **CI/CD:** GitHub Actions pipeline for automated testing, security scanning (Bandit), and Docker build/push.  
-* **Observability:** \- **Metrics:** Prometheus endpoint (/metrics) scraped by a Kubernetes Prometheus deployment.  
-  * **Logs:** Structured JSON logging.  
-  * **Tracing:** Unique Request IDs for transaction tracking.  
-* **Infrastructure:** Kubernetes Deployment, NodePort Services, and ConfigMaps.
+---
 
-## **🛠️ Tech Stack**
+## 🛠️ Getting Started
 
-* **Language:** Python 3.9 (FastAPI)  
-* **Containerization:** Docker  
-* **Orchestration:** Kubernetes (Minikube)  
-* **CI/CD:** GitHub Actions  
-* **Monitoring:** Prometheus
+### Prerequisites
+- Docker & Docker Compose
+- Python 3.9+ (optional, for local dev without Docker)
+- Kubernetes (Minikube or Kind)
 
-## **🏃‍♂️ How to Run**
+### 1️⃣ Run Locally (Docker Compose)
+The easiest way to run the app is with Docker Compose.
+```bash
+docker-compose up --build
+```
+The app will be available at [http://localhost:8000](http://localhost:8000).
 
-### **1\. Local Development**
+### 2️⃣ Run Locally (Python)
+If you prefer running it directly on your machine:
+```bash
+# Create virtual env
+python -m venv venv
+source venv/bin/activate
 
-\# Install dependencies  
-pip install \-r requirements.txt  
-\# Run the app  
-python app/main.py
+# Install dependencies
+pip install -r requirements.txt
 
-Access the API at: http://localhost:8000
+# Run the app
+uvicorn app.main:app --reload
+```
 
-### **2\. Kubernetes Deployment**
+---
 
-\# Apply app and monitoring  
-kubectl apply \-f k8s/
+## 🔒 Security Scans
 
-\# Access the Todo App  
-kubectl port-forward svc/todo-app-service 8080:80
+We take security seriously! This project implements both SAST and DAST.
 
-\# Access Prometheus Dashboard  
-kubectl port-forward svc/prometheus-service 9090:9090
+### Static Analysis (SAST)
+We use **Bandit** to check for common security issues in Python code.
+```bash
+bandit -r app/
+```
 
-## **📡 API Endpoints**
+### Dynamic Analysis (DAST)
+We use **OWASP ZAP** to scan the running application for vulnerabilities.
+Run the provided script to start a scan against your local instance:
+```bash
+./run_dast.sh
+```
+*Note: Make sure the app is running (via Docker or Python) before scanning.*
+The report will be saved in the `zap_reports/` directory.
 
-| Method | Endpoint | Description |
-| :---- | :---- | :---- |
-| GET | / | Welcome message |
-| GET | /metrics | Prometheus metrics |
-| GET | /todos/ | List all todos |
-| POST | /todos/ | Create a new todo |
+---
+
+## 📊 Observability
+
+### Metrics
+Prometheus metrics are exposed at `/metrics`. You can scrape them using a Prometheus server.
+
+### Logging & Tracing
+Every request is logged with a unique `X-Request-ID`.
+- Check the console output heavily for structured logs.
+- The `X-Request-ID` is returned in the response headers for tracking.
+
+---
+
+## ☸️ Kubernetes Deployment
+
+To deploy to a running Minikube cluster:
+
+1. **Apply Manifests**:
+   ```bash
+   kubectl apply -f k8s/
+   ```
+
+2. **Access the App**:
+   ```bash
+   # If using NodePort (default setup)
+   minikube service todo-app-service --url
+   ```
+
+---
+
+## 📝 API Examples
+
+### Create a Todo
+```bash
+curl -X POST "http://localhost:8000/todos/" \
+     -H "Content-Type: application/json" \
+     -d '{"title": "Finish DevOps Project", "description": "Write final report", "completed": false}'
+```
+
+### Javascript Fetch Example
+```javascript
+fetch('http://localhost:8000/todos/')
+  .then(response => response.json())
+  .then(data => console.log(data));
+```
+
+---
+
+## 👨‍💻 Author
+Built for the DevOps course requirements. 
+*Enjoy the journey, not just the destination.*

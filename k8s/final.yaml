@@ -83,10 +83,12 @@ metadata:
 spec:
   selector:
     app: todo-app
+  type: NodePort
   ports:
     - protocol: TCP
       port: 8000        # The port Prometheus looks for
       targetPort: 8000  # The port your container exposes
+      nodePort: 30080  # Optional: Expose it via NodePort
 
 ---
 # -------------------

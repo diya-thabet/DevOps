@@ -5,3 +5,17 @@
 docker build -t simple-todo-app:latest .
 
 docker run -d -p 8000:8000 --name my-todo-app simple-todo-app:latest
+
+
+
+
+
+
+
+
+
+
+
+
+
+kubectl get pods -o custom-columns=NAME:.metadata.name,IP:.status.podIP,PORTS:.spec.containers[*].ports[*].containerPort
