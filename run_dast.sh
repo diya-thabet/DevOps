@@ -25,6 +25,7 @@ echo "Running ZAP Baseline Scan..."
 # -I: Fail on any warning (optional, removed here to just report)
 docker run --rm \
     -v $(pwd)/zap_reports:/zap/wrk/:rw \
+    --network=host \
     -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
     -t $TARGET_URL \
     -r zap_report.html \

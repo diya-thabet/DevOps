@@ -48,11 +48,17 @@ jobs:
           docker run -d --name test-app -p 8000:8000 test-app
           sleep 10 # Wait for app to startup
 
-      - name: ZAP Scan
-        uses: zaproxy/action-baseline@v0.9.0
+      - name: ZAP Scan (Custom Script)
+        run: |
+          chmod +x run_dast.sh
+          ./run_dast.sh
+
+      - name: Upload ZAP Report
+        uses: actions/upload-artifact@v4
+        if: always() # Upload report even if scan fails (it might fail on warnings)
         with:
-          target: 'http://localhost:8000'
-          allow_issue_writing: false # Fixes "Resource not accessible" error
+          name: zap-security-report
+          path: zap_reports/zap_report.html
           
   # JOB 3: Build and Push Docker Image
   build-and-push:
