@@ -50,7 +50,8 @@ I realized that just "logging" isn't enough. I implemented **Structured Logging*
 
 ### Security Strategy
 - **Shift Left**: I put `bandit` in the pipeline so insecure code never gets built.
-- **Runtime Check**: I used `run_dast.sh` (a wrapper around the ZAP Docker image) to scan the app from the outside, just like an attacker would.
+- **Runtime Check**: I used `run_dast.sh` (a wrapper around the ZAP Docker image) to scan the app from the outside.
+    - *Feedback Loop Example*: Initially, the DAST scan warned about missing `X-Content-Type-Options` and Cache headers. I immediately updated the application middleware to inject these headers, demonstrating a proactive response to security findings.
 
 ## 5. Lessons Learned
 - **Automation is key**: Setting up the CI pipeline took time initially, but it saved me from breaking the build multiple times later on.
