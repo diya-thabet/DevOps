@@ -2,7 +2,7 @@
 
 Welcome to the Simple Todo API project! This is a lightweight REST application built to demonstrate core DevOps practices including CI/CD, Containerization, Kubernetes, Observability, and Security.
 
-## 🚀 Project Overview
+##  Project Overview
 
 This project implements a simple backend service for managing Todo items. It meets the following objectives:
 - **Backend**: Python (FastAPI) implementation under 150 lines.
@@ -14,21 +14,21 @@ This project implements a simple backend service for managing Todo items. It mee
 
 ---
 
-## 🛠️ Getting Started
+##  Getting Started
 
 ### Prerequisites
 - Docker & Docker Compose
 - Python 3.9+ (optional, for local dev without Docker)
 - Kubernetes (Minikube or Kind)
 
-### 1️⃣ Run Locally (Docker Compose)
+### 1 Run Locally (Docker Compose)
 The easiest way to run the app is with Docker Compose.
 ```bash
 docker-compose up --build
 ```
 The app will be available at [http://localhost:8000](http://localhost:8000).
 
-### 2️⃣ Run Locally (Python)
+### 2 Run Locally (Python)
 If you prefer running it directly on your machine:
 ```bash
 # Create virtual env
@@ -44,7 +44,7 @@ uvicorn app.main:app --reload
 
 ---
 
-## 🔒 Security Scans
+##  Security Scans
 
 We take security seriously! This project implements both SAST and DAST.
 
@@ -65,7 +65,7 @@ The report will be saved in the `zap_reports/` directory.
 
 ---
 
-## 📊 Observability
+##  Observability
 
 ### Metrics
 Prometheus metrics are exposed at `/metrics`. You can scrape them using a Prometheus server.
@@ -77,7 +77,7 @@ Every request is logged with a unique `X-Request-ID`.
 
 ---
 
-## ☸️ Kubernetes Deployment
+##  Kubernetes Deployment
 
 To deploy to a running Minikube cluster:
 
@@ -94,7 +94,7 @@ To deploy to a running Minikube cluster:
 
 ---
 
-## 📝 API Examples
+##  API Examples
 
 ### Create a Todo
 ```bash
@@ -112,6 +112,6 @@ fetch('http://localhost:8000/todos/')
 
 ---
 
-## 👨‍💻 Author
+##  Author
 Built for the DevOps course requirements. 
 *Enjoy the journey, not just the destination.*
