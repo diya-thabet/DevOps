@@ -52,6 +52,7 @@ jobs:
         uses: zaproxy/action-baseline@v0.9.0
         with:
           target: 'http://localhost:8000'
+          allow_issue_writing: false # Fixes "Resource not accessible" error
           
   # JOB 3: Build and Push Docker Image
   build-and-push:

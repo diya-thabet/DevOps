@@ -55,8 +55,10 @@ async def add_process_time_header(request: Request, call_next):
     
     # Security Headers (Fixing DAST Warnings)
     response.headers["X-Content-Type-Options"] = "nosniff"
-    response.headers["Cache-Control"] = "no-store" # Prevent caching of sensitive API data
-    response.headers["Content-Security-Policy"] = "default-src 'self'" # Basic CSP
+    response.headers["Cache-Control"] = "no-store" 
+    response.headers["Content-Security-Policy"] = "default-src 'self'"
+    response.headers["Cross-Origin-Opener-Policy"] = "same-origin" # Spectre Fix
+    response.headers["Cross-Origin-Embedder-Policy"] = "require-corp" # Spectre Fix
     
     logger.info(f"Request completed - ID: {request_id} - Duration: {process_time:.4f}s")
     return response
